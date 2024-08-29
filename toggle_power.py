@@ -2,13 +2,13 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 # GPIO 포트 설정
-MOTOR_PIN_SIG = 13
+MOTOR_PIN_SIG = 12
 MOTOR_PIN_5V = 6
 MOTOR_PIN_GND = 5
 
 # 서보의 주기
-SERVO_MAX_DUTY = 12
-SERVO_MIN_DUTY = 3
+SERVO_MAX_DUTY = 12.5
+SERVO_MIN_DUTY = 2.5
 # GPIO 설정
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(MOTOR_PIN_SIG, GPIO.OUT)
@@ -36,10 +36,11 @@ def setServoPos(degree):
   servo.ChangeDutyCycle(duty)
 
 if __name__ == "__main__":
+  setServoPos(90)
+  sleep(1)
   setServoPos(0)
-  sleep(3)
-  setServoPos(180)
-  sleep(3)
+  sleep(1)
+  setServoPos(90)
   
   servo.stop()
 

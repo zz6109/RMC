@@ -35,13 +35,13 @@ def setServoPos(degree):
 
   servo.ChangeDutyCycle(duty)
 
-  if __name__ == "__main__":
-    setServoPos(0)
-    sleep(3)
-    setServoPos(180)
-    sleep(3)
+if __name__ == "__main__":
+  setServoPos(0)
+  sleep(3)
+  setServoPos(180)
+  sleep(3)
+  
+  servo.stop()
 
-    servo.stop()
-
-    GPIO.cleanup()
+  GPIO.cleanup()
 

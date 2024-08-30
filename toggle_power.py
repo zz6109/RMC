@@ -31,18 +31,23 @@ def setServoPos(degree):
 # 각도(degree)를 duty로 변경한다.
   duty = SERVO_MIN_DUTY+(degree*(SERVO_MAX_DUTY-SERVO_MIN_DUTY)/180.0)
 
-  print("Degree: {} to {}(Duty)".format(degree, duty))
+# print("Degree: {} to {}(Duty)".format(degree, duty))
 
   servo.ChangeDutyCycle(duty)
 
-if __name__ == "__main__":
-  setServoPos(90)
-  sleep(1)
-  setServoPos(0)
-  sleep(1)
-  setServoPos(90)
-  
-  servo.stop()
+def toggle():
+#  setServoPos(90)
+#  sleep(1)
+#  setServoPos(0)
+ 
+#  sleep(1)  
+#  servo.stop()
 
-  GPIO.cleanup()
+  servo.ChangeDutyCycle(7.5)
+  sleep(1)
+  servo.ChangeDutyCycle(3)
+  sleep(1)
+
+  servo.stop()
+ 
 

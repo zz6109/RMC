@@ -1,6 +1,8 @@
 from typing import Final
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from toggle_power import toggle
+from time import sleep
 
 TOKEN: Final = '7305722961:AAEoDHBK9noJNbgd4wCFufuJlLgBZWWWCeA'
 BOT_USERNAME: Final = '@machine_ctl_bot'
@@ -9,10 +11,12 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):	# ì
 	await update.message.reply_text('Hello! Master')
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-	await update.message.reply_text('option index 1. /start 2. /help 3. /toggle_power')
+	await update.message.reply_text('option index 1. /start 2. /help 3. /toggle')
 
 async def toggle_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-	await update.message.reply_text('custom')
+	await update.message.reply_text('toggle_power')
+	toggle()
+	await update.message.reply_text('toggled...')
 
 # responses
 

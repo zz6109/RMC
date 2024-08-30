@@ -34,20 +34,17 @@ def setServoPos(degree):
 # print("Degree: {} to {}(Duty)".format(degree, duty))
 
   servo.ChangeDutyCycle(duty)
+  sleep(0.5)
 
 def toggle():
-#  setServoPos(90)
-#  sleep(1)
-#  setServoPos(0)
- 
-#  sleep(1)  
-#  servo.stop()
-
-  servo.ChangeDutyCycle(7.5)
+  setServoPos(90)
   sleep(1)
-  servo.ChangeDutyCycle(3)
+  setServoPos(0)
   sleep(1)
+  
+  servo.ChangeDutyCycle(0)
 
+def clean():
   servo.stop()
- 
+  GPIO.cleanup() 
 

@@ -1,14 +1,15 @@
 from typing import Final
-from telegram import Update
+from telegram import Update, InputFile
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from toggle_power import toggle, clean
+from capture_func import capture
 from time import sleep
 
 TOKEN: Final = '7305722961:AAEoDHBK9noJNbgd4wCFufuJlLgBZWWWCeA'
 BOT_USERNAME: Final = '@machine_ctl_bot'
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):	# 입력 할수 있는 커맨드 설정(비동기 함수로 선언)
-	await update.message.reply_text('원하는 옵션을 골라주세요.\n 1. /help 2. /cature 3. /toggle')
+	await update.message.reply_text('원하는 옵션을 골라주세요.\n 1. /help 2. /capture 3. /toggle')
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 	await update.message.reply_text('1. /help    : 각 기능의 도움말을 보여줍니다.\n')
@@ -17,8 +18,10 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def capture_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 	await update.message.reply_text('에어컨의 상태를 촬영중입니다')
-	sleep(3)
-	# 사진 전송 함수 호출
+	capture(0, "/home/aircon/aircon_ctl/pictures/captured_image.jpg")
+	sleep(1)
+	with open('/home/aircon/aircon_ctl/pictures/captured_image.jpg', 'rb') as image_file:
+	  await context.bot.send_photo(chat_id=5708440853, photo=InputFile(image_file))
 	await update.message.reply_text('에어컨의 상태를 확인하세요')
 
 async def toggle_command(update: Update, context: ContextTypes.DEFAULT_TYPE):

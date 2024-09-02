@@ -1,6 +1,8 @@
 # RPI Programing
 ## machine_ctl by telegram
 
+## need venv 
+
 ### GPIO_using_pin SIG(GPIO_12)[pwm0]
 
 ### vcgencmd get_throttled(RPi power Level commit)
@@ -11,8 +13,8 @@
 
 ### toggling power with servo_moter : check(240829)
 
-### capturing aircon controler status : not yet
+### capturing aircon controler status : check(240902)
 
 ### toggling hardware making : not yet
 
-
+### create folder : pictures

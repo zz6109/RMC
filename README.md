@@ -1,4 +1,7 @@
 # RPI Programing
+
+![Screenshot-4](https://github.com/user-attachments/assets/492bb45f-4fa7-4aba-83c7-4e38d8e41dfb)
+
 ## machine_ctl by telegram
 
 ## need venv 

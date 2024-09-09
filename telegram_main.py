@@ -1,33 +1,63 @@
+from concurrent.futures import ThreadPoolExecutor
 from typing import Final
-from telegram import Update
+import status_mode, sql_data_input
+from telegram import Update, InputFile
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from toggle_power import toggle, clean
+# from toggle_power import toggle, clean
+# from capture_func import capture
 from time import sleep
 
+# 모드 저장 전역변수(기본적으로 능동모드로 선언)
+mode = 1
+
+# 텔레그램 봇 설정
 TOKEN: Final = '7305722961:AAEoDHBK9noJNbgd4wCFufuJlLgBZWWWCeA'
 BOT_USERNAME: Final = '@machine_ctl_bot'
 
+executor = ThreadPoolExecutor(max_workers=1)
+
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):	# 입력 할수 있는 커맨드 설정(비동기 함수로 선언)
-	await update.message.reply_text('원하는 옵션을 골라주세요.\n 1. /help 2. /cature 3. /toggle')
+	executor.submit(sql_data_input.sql_input)
+	await update.message.reply_text('온습도 측정을 시작합니다. 명령어를 보시려면 /help를 입력해주세요.')
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 	await update.message.reply_text('1. /help    : 각 기능의 도움말을 보여줍니다.\n')
-	await update.message.reply_text('2. /capture : 에어컨의 상태를 보여줍니다.\n')
-	await update.message.reply_text('3. /toggle  : 에어컨의 전원을 키거나 끕니다.')
+	await update.message.reply_text('2. /active  : 온습도에 따라 자동으로 에어컨을 토글하는 모드 \n')
+	await update.message.reply_text('3. /passive : 수동조작으로 에어컨을 토글하는 모드\n')
+	await update.message.reply_text('4. /check   : 현재 모드를 확인(능동, 수동)\n')
+	await update.message.reply_text('5. /toggle  : 에어컨의 전원을 키거나 끕니다\n')
 
-async def capture_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-	await update.message.reply_text('에어컨의 상태를 촬영중입니다')
-	sleep(3)
-	# 사진 전송 함수 호출
-	await update.message.reply_text('에어컨의 상태를 확인하세요')
+async def active_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+	await update.message.reply_text('능동모드 전환\n')
+	mode = True
+	status_mode.active()
+
+
+async def passive_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+	await update.message.reply_text('수동모드 전환\n')
+	mode = False
+ 	status_mode.passive()
+
+
+async def stat_check_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+	await update.message.reply_text('현재 모드 확인\n')
+	if mode == True:
+		await update.message.reply_text('현재는 능동모드 입니다.\n')
+	else:
+		await update.message.reply_text('현재는 수동모드 입니다.\n')
 
 async def toggle_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-	await update.message.reply_text('전원을 토글중입니다...')
-	toggle()
-	# clean() 필요시 주석제거
-	sleep(1)
-	await update.message.reply_text('전원 토글이 완료되었습니다.')
-	await update.message.reply_text('토글이 안 됐을 수 있으니 /capture로 확인해주세요.')
+	if mode == True:
+		await update.message.reply_text('현재는 능동모드 입니다. 수동으로 조작하실수 없습니다.\n')
+	else:
+		await update.message.reply_text('전원을 토글중입니다...\n')
+		status_mode.toggle()
+		sleep(1)
+		await update.message.reply_text('전원 토글이 완료되었습니다.\n')
+		with open('/home/aircon/aircon_ctl/pictures/captured_image.jpg', 'rb') as image_file:
+	  		await context.bot.send_photo(chat_id=5708440853, photo=InputFile(image_file))
+		await update.message.reply_text('에어컨의 상태를 확인하세요\n')
+	
 
 # responses
 
@@ -60,7 +90,9 @@ if __name__ == '__main__':
 	# commands
 	app.add_handler(CommandHandler('start', start_command))
 	app.add_handler(CommandHandler('help', help_command))
-	app.add_handler(CommandHandler('capture', capture_command))
+	app.add_handler(CommandHandler('active', active_command))
+	app.add_handler(CommandHandler('passive', passive_command))
+	app.add_handler(CommandHandler('check', stat_check_command))
 	app.add_handler(CommandHandler('toggle', toggle_command))
 	
 	# Messages

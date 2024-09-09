@@ -16,6 +16,13 @@ def capture(camera_port, save_path):
     # cap.set(cv2.CAP_PROP_CONTRAST, -1)    # 대비
     # cap.set(cv2.CAP_PROP_SATURATION, -1)  # 채도
  
+    # 필요시 주석 해제후 사용
+    # cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.75)  # 0.75는 수동 노출 모드
+    # cap.set(cv2.CAP_PROP_EXPOSURE, 0.1)        # 수동 노출 값, 조정 필요
+    # cap.set(cv2.CAP_PROP_BRIGHTNESS, 0.5)  # 밝기
+    # cap.set(cv2.CAP_PROP_CONTRAST, 0.5)    # 대비
+    # cap.set(cv2.CAP_PROP_SATURATION, 0.5)  # 채도
+
     # 프레임 캡처
     ret, frame = cap.read()
 

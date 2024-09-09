@@ -15,6 +15,8 @@
 
 ### capturing aircon controler status : check(240902)
 
+### contents add : arduino control servo_motor, temp_humi data upload sql_server
+
 ### toggling hardware making : not yet
 
 ### create folder : pictures

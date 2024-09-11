@@ -16,11 +16,12 @@
 ![IMG_20240911_110046](https://github.com/user-attachments/assets/e4111ddd-9878-4b31-b885-3053c9c46d5c)
 
 <hr/>
-## These codes work in the same network environment, but accessing from external IPs to external IPs requires a VPN server protocol.
-## So, I plan to set up a VPN server using SoftEther VPN additionally.
+These codes work in the same network environment, but accessing from external IPs to external IPs requires a VPN server protocol.
+So, I plan to set up a VPN server using SoftEther VPN additionally.
 <hr/>
 
-### 1. Automatically run Telegram Bot after booting
+<p>$\huge{\rm{\color{#5ad7b7}\ 로만체\ 초록색}}$</p>
+<p>$\color{#5ad7b7}\ 1. Automatically run Telegram Bot after booting </p>
 
 ### 2. Upload temperature and humidity value to sql server (real time-1 minute cycle)
 

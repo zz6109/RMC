@@ -2,24 +2,34 @@
 
 ![Screenshot-4](https://github.com/user-attachments/assets/492bb45f-4fa7-4aba-83c7-4e38d8e41dfb)
 
-## machine_ctl by telegram
+## Implementation of an air conditioner power toggle system using the Telegram bot library
+<hr/>
 
-## need venv 
+## To run the "pip install" command, it can only be done in a "venv" environment.
 
-### GPIO_using_pin SIG(GPIO_12)[pwm0]
+## Before writing the code, the necessary preparations...
 
-### vcgencmd get_throttled(RPi power Level commit)
+## USB_camera, Servo_moter, dht11, arduino_uno, rpi3b+(I used the 3B+ version, but you can use a higher one. However, I cannot take responsibility for any issues that arise from using a different version.), The implemented SQL server
 
-### auto reboot starting : check(240826)
+## The required action is to connect the RPi and Arduino Uno via USB.
 
-### telegram service start messaging : check(240827)
+![IMG_20240911_110046](https://github.com/user-attachments/assets/e4111ddd-9878-4b31-b885-3053c9c46d5c)
 
-### toggling power with servo_moter : check(240829)
+<hr/>
+## These codes work in the same network environment, but accessing from external IPs to external IPs requires a VPN server protocol.
+## So, I plan to set up a VPN server using SoftEther VPN additionally.
+<hr/>
 
-### capturing aircon controler status : check(240902)
+### 1. Automatically run Telegram Bot after booting
 
-### contents add : arduino control servo_motor, temp_humi data upload sql_server
+### 2. Upload temperature and humidity value to sql server (real time-1 minute cycle)
 
-### toggling hardware making : not yet
+### 3. Operate the servo motor at a certain temperature (25 degrees Celsius) or higher
 
-### create folder : pictures
+### 4. After the servomotor operation, take a picture of the controller with the USB camera and check whether the controller is turned on or not, then operate the thermomotor again
+
+### 5. If it is confirmed that it is turned on, send it to the Telegram
+
+### 6. Add manual on/off (toggle) function
+
+### 7. To be added after implementing the VPN server...

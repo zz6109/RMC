@@ -20,12 +20,11 @@ These codes work in the same network environment, but accessing from external IP
 So, I plan to set up a VPN server using SoftEther VPN additionally.
 <hr/>
 
-<p>$\huge{\rm{\color{#5ad7b7}\ 로만체\ 초록색}}$</p>
-<p>$\color{#5ad7b7}\ 1. Automatically run Telegram Bot after booting </p>
+### ✅ 1. Automatically run Telegram Bot after booting
 
-### 2. Upload temperature and humidity value to sql server (real time-1 minute cycle)
+### ✅ 2. Upload temperature and humidity value to sql server (real time-1 minute cycle)
 
-### 3. Operate the servo motor at a certain temperature (25 degrees Celsius) or higher
+### ✅ 3. Operate the servo motor at a certain temperature (25 degrees Celsius) or higher
 
 ### 4. After the servomotor operation, take a picture of the controller with the USB camera and check whether the controller is turned on or not, then operate the thermomotor again
 
